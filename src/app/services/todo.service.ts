@@ -22,8 +22,13 @@ export class TodoService {
     return this._http.get<Todo[]>(`${this.todosUrl}${this.todosLimit}`);
   }
 
-  toggleCompleted(todo: Todo): Observable<any> {
+  toggleCompleted(todo: Todo): Observable<Todo> {
     const url = `${this.todosUrl}/${todo.id}`;
-    return this._http.put(url, todo, httpOptions);
+    return this._http.put<Todo>(url, todo, httpOptions);
+  }
+
+  deleteTodo(todo: Todo): Observable<Todo> {
+    const url = `${this.todosUrl}/${todo.id}`;
+    return this._http.delete<Todo>(url, httpOptions);
   }
 }
